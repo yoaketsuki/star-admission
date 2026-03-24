@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="深粉紅校徽.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <title>大學繁星推薦入學歷年錄取標準儀表板 (110-115)</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -26,6 +26,16 @@ h1,h2,h3,h4{font-family:'Poppins','Noto Sans TC',sans-serif}
 .qsbtn{padding:8px 16px;border:2px solid var(--accent);border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;color:var(--dark);font-weight:500;transition:all .2s}
 .qsbtn:hover,.qsbtn.active{background:var(--accent);color:#fff}
 @keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.stats-banner{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#264653,#2a6f7a);color:#fff;border-radius:10px;padding:14px 20px;margin-bottom:14px;text-decoration:none;transition:all .3s;box-shadow:0 2px 8px rgba(38,70,83,.15);position:relative;overflow:hidden}
+.stats-banner::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#2d8b8b,#3aa8a8);opacity:0;transition:opacity .3s}
+.stats-banner:hover::before{opacity:1}
+.stats-banner:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,139,139,.3)}
+.stats-banner>*{position:relative;z-index:1}
+.stats-banner .sb-sub{font-size:11px;color:#8ab4c4;margin-top:2px;transition:color .3s}
+.stats-banner:hover .sb-sub{color:#e0f2f0}
+.stats-banner .sb-arrow{animation:nudge 1.5s ease-in-out infinite;transition:transform .3s}
+.stats-banner:hover .sb-arrow{transform:translateX(6px)}
 .info{font-size:12px;color:var(--mid);margin-bottom:12px}.info b{color:var(--accent)}
 .school-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px;margin-bottom:14px}
 .sc{background:#fff;border-radius:6px;padding:8px 12px;cursor:pointer;border:1.5px solid transparent;font-size:12px;display:flex;justify-content:space-between;align-items:center;transition:all .15s}
@@ -69,7 +79,7 @@ h1,h2,h3,h4{font-family:'Poppins','Noto Sans TC',sans-serif}
 <div class="header"><div><h1><a href="index.html" style="color:inherit;text-decoration:none">大學繁星推薦入學歷年錄取標準儀表板</a></h1><div class="sub">110-115 學年度 / 資料來源：<a href="https://www.cac.edu.tw/cacportal/index.php" target="_blank" style="color:var(--mid);text-decoration:underline">大學甄選入學委員會</a></div></div>
 <div class="stats"><div><div class="sv">6</div><div class="sl">學年度</div></div><div><div class="sv">70</div><div class="sl">學校</div></div><div><div class="sv">17,836</div><div class="sl">筆資料</div></div></div></div>
 <div class="container">
-<a href="stats.html" class="stats-banner" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#264653,#2a6f7a);color:#fff;border-radius:10px;padding:14px 20px;margin-bottom:14px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 8px rgba(38,70,83,.15)" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 16px rgba(38,70,83,.25)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 8px rgba(38,70,83,.15)'"><div><div style="font-size:14px;font-weight:600;font-family:Poppins,'Noto Sans TC',sans-serif">歷年繁星統計資料總覽</div><div style="font-size:11px;color:#8ab4c4;margin-top:2px">110-115 學年度招生趨勢、錄取率、放棄率、國私立比例一覽</div></div><div><svg width="38" height="38" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#f4a261" stroke-width="1.5" opacity=".5"/><path d="M10 8l4 4-4 4" stroke="#f4a261" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></a>
+<a href="stats.html" class="stats-banner"><div><div style="font-size:14px;font-weight:600;font-family:Poppins,'Noto Sans TC',sans-serif">歷年繁星統計資料總覽</div><div class="sb-sub">110-115 學年度招生趨勢、錄取率、放棄率一覽</div></div><div class="sb-arrow"><svg width="38" height="38" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#f4a261" stroke-width="1.5" opacity=".5"/><path d="M10 8l4 4-4 4" stroke="#f4a261" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></a>
 <div class="search-bar"><input type="text" id="searchBox" placeholder="搜尋學校或科系（例如：政大外交、成大心理、台大 醫學系）">
 <div class="group-btns"><button class="gbtn" data-g="top5">頂大</button><button class="gbtn" data-g="mid4">中字輩</button><button class="gbtn" data-g="med">醫學系</button></div></div>
 <div id="quickSchools"></div><div class="info" id="info"></div><div id="schoolPanel"></div><div id="schoolGrid"></div>
