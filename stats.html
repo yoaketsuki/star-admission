@@ -271,10 +271,10 @@ function buildChartMed(){
   new Chart(document.getElementById('chartMed'),{
     type:'bar',
     data:{labels:YEARS.map(String),datasets:[
-      {label:'報名人數',data:YEARS.map(y=>D[y].med),backgroundColor:navy+'cc',borderRadius:4,yAxisID:'y',...noLabel},
-      {label:'篩選通過',data:YEARS.map(y=>D[y].medPass),backgroundColor:teal+'cc',borderRadius:4,yAxisID:'y',...noLabel},
-      {label:'錄取人數',data:YEARS.map(y=>D[y].medAdmit),backgroundColor:warn+'cc',borderRadius:4,yAxisID:'y',...noLabel},
-      {label:'錄取率',data:medRate,type:'line',borderColor:gold,backgroundColor:gold,pointRadius:6,pointBackgroundColor:gold,tension:.3,borderWidth:2.5,yAxisID:'y2',
+      {label:'報名人數',data:YEARS.map(y=>D[y].med),backgroundColor:navy+'cc',borderRadius:4,yAxisID:'y',order:2,...noLabel},
+      {label:'篩選通過',data:YEARS.map(y=>D[y].medPass),backgroundColor:teal+'cc',borderRadius:4,yAxisID:'y',order:2,...noLabel},
+      {label:'錄取人數',data:YEARS.map(y=>D[y].medAdmit),backgroundColor:warn+'cc',borderRadius:4,yAxisID:'y',order:2,...noLabel},
+      {label:'錄取率',data:medRate,type:'line',borderColor:gold,backgroundColor:gold,pointRadius:6,pointBackgroundColor:gold,tension:.3,borderWidth:2.5,yAxisID:'y2',order:0,
         datalabels:{display:true,align:'top',offset:6,color:gold,font:{weight:'bold',size:12,family:'Poppins'},formatter:v=>v!=null?v+'%':''}}
     ]},
     options:{responsive:true,maintainAspectRatio:false,
