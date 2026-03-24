@@ -42,7 +42,8 @@
 | `outputs/繁星錄取標準_*.csv` | CSV 輸出 |
 | `outputs/繁星推薦儀表板.html` | 本機版儀表板 |
 | `outputs/index.html` | GitHub Pages 版（同上） |
-| `outputs/stats.html` | 歷年繁星統計資料總覽頁面（Sunset Boulevard 配色） |
+| `outputs/stats.html` | 歷年繁星統計資料總覽頁面（Ocean Depths 配色） |
+| `outputs/favicon.png` | 網頁 favicon（鳳新校徽） |
 
 ---
 
@@ -111,10 +112,20 @@
 
 ## 待辦
 
-- [x] 併校資料合併：SCHOOL_MERGE 字典（交大+陽明→陽明交通大學）（已 push）
-- [x] 醫學系按鈕改為學校分類，只顯示醫學系/牙醫學系（已完成）
-- [x] GoatCounter 訪客追蹤 + footer 顯示瀏覽次數（已 push）
-- [ ] 學測檢定標準變化標示（Sunset Boulevard 配色）
+- [x] 併校資料合併：SCHOOL_MERGE 字典（交大+陽明→陽明交通大學）
+- [x] 醫學系按鈕改為學校分類，只顯示醫學系/牙醫學系
+- [x] GoatCounter 訪客追蹤 + footer 顯示瀏覽次數
+- [x] 歷年繁星統計資料總覽頁面（stats.html，Ocean Depths 配色）
+- [x] 趨勢圖錄取率標註（Midnight Galaxy 紫 #a490c2）
+- [x] 第八學群統計圖（錄取率 Golden Hour 金 #f4a900）
+- [x] 水平魚骨漏斗圖
+- [x] 點開學校時收合全校選單
+- [x] 外加名額改 Coral #f4a261 色標示（取代空格）
+- [x] 標題改「大學繁星推薦入學歷年錄取標準儀表板」+ 回首頁連結
+- [x] 甄選入學委員會超連結
+- [x] Banner SVG 箭頭（38px）
+- [x] Favicon 校徽（favicon.png）
+- [ ] 學測檢定標準變化標示
 - [ ] 校內學生繁星排序功能（規劃中，與錄取標準交叉比對做選填建議）
 - [ ] 資料品質報告：每次提取後自動檢查缺失、異常、校系增減
 - [ ] 趨勢報告自動生成
@@ -160,5 +171,9 @@ git push
 | 2026-03-23 | GoatCounter 訪客追蹤 + footer 瀏覽次數（已 push） |
 | 2026-03-23 | 設定 git 身份（yoaketsuki）、學會手動 git push 流程 |
 | 2026-03-23 | 新增 references/繁星歷年統計.md（110-115 招生統計資料） |
-| 2026-03-24 | 新增 stats.html 歷年繁星統計資料總覽（Sunset Boulevard 配色、Chart.js 圖表、漏斗圖、數據表） |
-| 2026-03-24 | 主儀表板+index.html 加入總覽入口 banner |
+| 2026-03-24 | 新增 stats.html 歷年繁星統計資料總覽（Ocean Depths 配色、Chart.js 圖表、魚骨漏斗、第八學群） |
+| 2026-03-24 | 主儀表板+index.html 加入總覽入口 banner（SVG 箭頭 38px） |
+| 2026-03-24 | 錄取率標註 Midnight Galaxy 紫 #a490c2、第八學群錄取率 Golden Hour 金 #f4a900 |
+| 2026-03-24 | 點開學校收合全校選單、外加名額 Coral 色標示 |
+| 2026-03-24 | 標題改名「大學繁星推薦入學歷年錄取標準儀表板」+ 回首頁連結 + 甄選入學委員會超連結 |
+| 2026-03-24 | Favicon 校徽（favicon.png） |

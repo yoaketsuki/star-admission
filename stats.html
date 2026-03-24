@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="深粉紅校徽.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <title>歷年繁星統計資料總覽 (110-115)</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -48,8 +48,10 @@ h1,h2,h3,h4{font-family:'Poppins','Noto Sans TC',sans-serif}
 .data-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:24px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(26,35,50,.06)}
 .data-table th{background:var(--navy);color:var(--cream);padding:10px 12px;text-align:center;font-weight:500;font-size:11px}
 .data-table td{padding:9px 12px;text-align:center;border-bottom:1px solid var(--subtle)}
+.data-table .col-div{border-left:2px solid var(--subtle)}
 .data-table tr:last-child td{border-bottom:none}
-.data-table tr:hover td{background:rgba(45,139,139,.05)}
+.data-table tr:nth-child(even) td{background:#f0f6f6}
+.data-table tr:hover td{background:rgba(45,139,139,.08)}
 .data-table .pct{color:var(--text-mid);font-size:10px}
 .data-table .highlight{background:rgba(45,139,139,.06);font-weight:600}
 .data-table .pending{color:var(--subtle);font-style:italic}
@@ -303,7 +305,7 @@ function buildFunnel(){
 // === Data Table ===
 function buildTable(){
   const yrs=[115,114,113,112,111,110];
-  let h=`<thead><tr><th rowspan="2">學年度</th><th rowspan="2">學校</th><th rowspan="2">校系</th><th rowspan="2">名額</th><th colspan="4">第 1-7 類學群</th><th colspan="3">第 8 類學群（醫學）</th></tr><tr><th>報名</th><th>錄取</th><th>錄取率</th><th>放棄</th><th>報名</th><th>錄取</th><th>錄取率</th></tr></thead><tbody>`;
+  let h=`<thead><tr><th rowspan="2">學年度</th><th rowspan="2">學校</th><th rowspan="2">校系</th><th rowspan="2">名額</th><th colspan="4" class="col-div">第 1-7 類學群</th><th colspan="3" class="col-div">第 8 類學群（醫學）</th></tr><tr><th class="col-div">報名</th><th>錄取</th><th>錄取率</th><th>放棄</th><th class="col-div">報名</th><th>錄取</th><th>錄取率</th></tr></thead><tbody>`;
   yrs.forEach(y=>{
     const d=D[y];
     const rate=d.apply?pct(d.admit,d.apply):'—';
@@ -315,11 +317,11 @@ function buildTable(){
       <td>${d.schools}</td>
       <td>${fmt(d.depts)}</td>
       <td>${fmt(d.quota)}</td>
-      <td>${na?'<span class="pending">尚未公布</span>':fmt(d.apply)}</td>
+      <td class="col-div">${na?'<span class="pending">尚未公布</span>':fmt(d.apply)}</td>
       <td>${na?'<span class="pending">尚未公布</span>':fmt(d.admit)}</td>
       <td>${na?'—':rate}</td>
       <td>${na?'—':fmt(d.quit)+' <span class="pct">('+qr+')</span>'}</td>
-      <td>${na?'—':fmt(d.med)}</td>
+      <td class="col-div">${na?'—':fmt(d.med)}</td>
       <td>${na?'—':fmt(d.medAdmit)}</td>
       <td>${na?'—':mRate}</td>
     </tr>`;
