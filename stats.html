@@ -64,6 +64,8 @@ h1,h2,h3,h4{font-family:'Poppins','Noto Sans TC',sans-serif}
 .funnel-step .f-val{font-size:18px;font-weight:700;font-family:'Poppins'}
 .funnel-step .f-pct{font-size:10px;opacity:.75;margin-top:1px}
 
+.top-btn{position:fixed;bottom:24px;right:24px;background:var(--teal);color:#fff;border:none;border-radius:50%;width:52px;height:52px;cursor:pointer;box-shadow:0 4px 16px rgba(45,139,139,.35);z-index:100;display:none;align-items:center;justify-content:center;transition:transform .2s}
+.top-btn:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(45,139,139,.45)}
 .footer{text-align:center;padding:20px;color:var(--text-mid);font-size:11px;margin-top:20px}
 
 @media(max-width:600px){
@@ -133,6 +135,7 @@ h1,h2,h3,h4{font-family:'Poppins','Noto Sans TC',sans-serif}
 
 </div>
 
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="footer">
   歷年繁星統計資料總覽 &middot; 資料來源：<a href="https://www.cac.edu.tw/cacportal/index.php" target="_blank" style="color:inherit;text-decoration:underline">大學甄選入學委員會</a> &middot; 國立鳳新高中教務處製作
 </div>
@@ -331,6 +334,7 @@ function buildTable(){
 }
 
 // === Init ===
+window.addEventListener('scroll',()=>{const b=document.getElementById('topBtn');b.style.display=window.scrollY>150?'flex':'none'});
 buildCards();
 buildChartMain();
 buildFunnel();
