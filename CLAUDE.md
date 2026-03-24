@@ -38,9 +38,11 @@
 | `update_dashboard.py` | 儀表板更新腳本 |
 | `update_bisxu_inline.py` | 比序嵌入腳本 |
 | `references/110-115繁星錄取標準/` | PDF 來源 |
+| `references/繁星歷年統計.md` | 110-115 招生統計（學校數、名額、報名、錄取、放棄人數） |
 | `outputs/繁星錄取標準_*.csv` | CSV 輸出 |
 | `outputs/繁星推薦儀表板.html` | 本機版儀表板 |
 | `outputs/index.html` | GitHub Pages 版（同上） |
+| `outputs/stats.html` | 歷年繁星統計資料總覽頁面（Sunset Boulevard 配色） |
 
 ---
 
@@ -109,13 +111,14 @@
 
 ## 待辦
 
-- [ ] 醫學系按鈕改為學校分類，只顯示醫學系/牙醫學系
+- [x] 併校資料合併：SCHOOL_MERGE 字典（交大+陽明→陽明交通大學）（已 push）
+- [x] 醫學系按鈕改為學校分類，只顯示醫學系/牙醫學系（已完成）
+- [x] GoatCounter 訪客追蹤 + footer 顯示瀏覽次數（已 push）
 - [ ] 學測檢定標準變化標示（Sunset Boulevard 配色）
 - [ ] 校內學生繁星排序功能（規劃中，與錄取標準交叉比對做選填建議）
 - [ ] 資料品質報告：每次提取後自動檢查缺失、異常、校系增減
 - [ ] 趨勢報告自動生成
 - [ ] UI 持續迭代
-- [ ] 併校合併已改程式碼，尚未 push（需先 git pull --rebase）
 
 ---
 
@@ -152,5 +155,10 @@ git push
 | 日期 | 內容 |
 |------|------|
 | 2026-03-23 | PR #1 合併：首頁按鈕改版（橘色、62px、SVG 圖示更清晰） |
-| 2026-03-23 | 併校資料合併：SCHOOL_MERGE 字典（交大+陽明→陽明交通大學），已改程式碼，尚未 push |
-| 2026-03-23 | 規劃中：醫學系學校分類、學測檢定變化標示（Sunset Boulevard）、校內繁星排序 |
+| 2026-03-23 | 併校資料合併：SCHOOL_MERGE 字典（交大+陽明→陽明交通大學）（已 push） |
+| 2026-03-23 | 醫學系按鈕改為學校分類+只顯示醫/牙醫（已完成） |
+| 2026-03-23 | GoatCounter 訪客追蹤 + footer 瀏覽次數（已 push） |
+| 2026-03-23 | 設定 git 身份（yoaketsuki）、學會手動 git push 流程 |
+| 2026-03-23 | 新增 references/繁星歷年統計.md（110-115 招生統計資料） |
+| 2026-03-24 | 新增 stats.html 歷年繁星統計資料總覽（Sunset Boulevard 配色、Chart.js 圖表、漏斗圖、數據表） |
+| 2026-03-24 | 主儀表板+index.html 加入總覽入口 banner |

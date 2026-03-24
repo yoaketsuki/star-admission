@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>歷年繁星統計資料總覽 (110-115)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+  --navy:#1a2332;--teal:#2d8b8b;--seafoam:#a8dadc;--cream:#f1faee;
+  --light:#f4f8f9;--card:#fff;--subtle:#d4e3e6;--text:#1a2332;--text-mid:#5a7a8a;
+  --up:#e76f51;--down:#2d8b8b;--neutral:#8ab4c4;--med:#8b5e3c
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--light);color:var(--text);line-height:1.6}
+h1,h2,h3,h4{font-family:'Poppins','Noto Sans TC',sans-serif}
+
+.header{background:var(--navy);color:var(--cream);padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:20px;font-weight:600}
+.header .sub{color:var(--seafoam);font-size:12px;margin-top:2px}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border:none;border-radius:50px;background:var(--teal);color:#fff;font-size:13px;font-family:inherit;cursor:pointer;text-decoration:none;transition:all .2s;font-weight:500}
+.back-btn:hover{background:#238080;transform:translateY(-1px);box-shadow:0 4px 12px rgba(45,139,139,.3)}
+.back-btn svg{width:18px;height:18px}
+
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+.section-title{font-size:16px;font-weight:700;color:var(--navy);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--teal);display:inline-block}
+.section-title:first-of-type{margin-top:0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px}
+.card{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(26,35,50,.06);border-left:4px solid var(--teal);position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:var(--seafoam);opacity:.12;border-radius:0 0 0 60px}
+.card-label{font-size:12px;color:var(--text-mid);margin-bottom:4px}
+.card-value{font-size:28px;font-weight:700;color:var(--navy);font-family:'Poppins','Noto Sans TC',sans-serif}
+.card-sub{font-size:12px;color:var(--text-mid);margin-top:4px}
+.card-change{font-size:11px;margin-top:6px;display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px}
+.card-change.up{background:#fde8e4;color:var(--up)}
+.card-change.down{background:#e0f2f0;color:var(--down)}
+.card-change.neutral{background:#eef3f6;color:var(--text-mid)}
+
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:18px;margin-bottom:24px}
+.chart-box{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(26,35,50,.06);margin-bottom:18px}
+.chart-box h3{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:14px}
+.chart-container{position:relative;height:300px}
+
+.data-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:24px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(26,35,50,.06)}
+.data-table th{background:var(--navy);color:var(--cream);padding:10px 12px;text-align:center;font-weight:500;font-size:11px}
+.data-table td{padding:9px 12px;text-align:center;border-bottom:1px solid var(--subtle)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(45,139,139,.05)}
+.data-table .pct{color:var(--text-mid);font-size:10px}
+.data-table .highlight{background:rgba(45,139,139,.06);font-weight:600}
+.data-table .pending{color:var(--subtle);font-style:italic}
+
+.funnel{display:flex;align-items:center;justify-content:center;gap:0;margin:12px 0;max-width:700px;margin-left:auto;margin-right:auto}
+.funnel-step{padding:12px 8px;text-align:center;font-size:12px;font-weight:500;color:#fff;transition:all .2s;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%,12px 50%);display:flex;flex-direction:column;justify-content:center;min-height:80px}
+.funnel-step:first-child{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%);border-radius:6px 0 0 6px}
+.funnel-step:hover{opacity:.9}
+.funnel-step .f-label{font-size:11px;opacity:.8;margin-bottom:2px}
+.funnel-step .f-val{font-size:18px;font-weight:700;font-family:'Poppins'}
+.funnel-step .f-pct{font-size:10px;opacity:.75;margin-top:1px}
+
+.footer{text-align:center;padding:20px;color:var(--text-mid);font-size:11px;margin-top:20px}
+
+@media(max-width:600px){
+  .cards{grid-template-columns:1fr 1fr}
+  .chart-grid{grid-template-columns:1fr}
+  .chart-container{height:250px}
+  .header{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>歷年繁星統計資料總覽</h1>
+    <div class="sub">110-115 學年度 &middot; <a href="https://www.cac.edu.tw/cacportal/index.php" target="_blank" style="color:inherit;text-decoration:underline">大學甄選入學委員會</a></div>
+  </div>
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" opacity=".3"/><path d="M14 8l-4 4 4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    回到錄取標準儀表板
+  </a>
+</div>
+
+<div class="container">
+
+<!-- 1. 115 重點數字 -->
+<div class="section-title">115 學年度重點數字</div>
+<div class="cards" id="cards"></div>
+
+<!-- 2. 六年趨勢（報名 vs 錄取 vs 名額 + 錄取率標註） -->
+<div class="section-title">六年趨勢</div>
+<div class="chart-box">
+  <h3>報名人數 vs 錄取人數 vs 招生名額（含錄取率）</h3>
+  <div class="chart-container"><canvas id="chartMain"></canvas></div>
+</div>
+
+<!-- 3. 漏斗 -->
+<div class="section-title">114 學年度招生漏斗（第 1-7 類學群）</div>
+<div class="chart-box">
+  <div class="funnel" id="funnel"></div>
+</div>
+
+<!-- 4. 學校數 & 校系數 -->
+<div class="chart-grid">
+  <div class="chart-box" style="margin-bottom:0">
+    <h3>招生學校數 &amp; 校系數</h3>
+    <div class="chart-container"><canvas id="chartScale"></canvas></div>
+  </div>
+  <div class="chart-box" style="margin-bottom:0">
+    <h3>錄取率 &amp; 放棄率</h3>
+    <div class="chart-container"><canvas id="chartRates"></canvas></div>
+  </div>
+</div>
+
+<!-- 5. 第八學群 -->
+<div class="section-title">第八類學群（醫學系）統計</div>
+<div class="chart-box">
+  <h3>第八類學群：報名人數 vs 錄取人數（含錄取率）</h3>
+  <div class="chart-container"><canvas id="chartMed"></canvas></div>
+</div>
+
+<!-- 6. 完整數據表 -->
+<div class="section-title">完整數據表</div>
+<div style="overflow-x:auto">
+<table class="data-table" id="dataTable"></table>
+</div>
+
+</div>
+
+<div class="footer">
+  歷年繁星統計資料總覽 &middot; 資料來源：<a href="https://www.cac.edu.tw/cacportal/index.php" target="_blank" style="color:inherit;text-decoration:underline">大學甄選入學委員會</a> &middot; 國立鳳新高中教務處製作
+</div>
+
+<script data-goatcounter="https://fhsh5209.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+Chart.register(ChartDataLabels);
+const YEARS=[110,111,112,113,114,115];
+const D={
+  110:{schools:68,depts:1779,quota:16111,pub:7015,priv:9096,extra:1969,
+       apply:24732,extraApply:186,med:790,
+       admit:14918,extraAdmit:173,medPass:409,
+       quit:226,extraQuit:3,medAdmit:229,medQuit:3},
+  111:{schools:67,depts:1807,quota:16178,pub:7045,priv:9133,extra:2002,
+       apply:24323,extraApply:216,med:739,
+       admit:15034,extraAdmit:199,medPass:403,
+       quit:226,extraQuit:4,medAdmit:226,medQuit:3},
+  112:{schools:66,depts:1789,quota:15989,pub:7065,priv:8924,extra:1990,
+       apply:23011,extraApply:233,med:699,
+       admit:14431,extraAdmit:203,medPass:417,
+       quit:597,extraQuit:11,medAdmit:227,medQuit:3},
+  113:{schools:65,depts:1754,quota:15972,pub:7128,priv:8844,extra:2014,
+       apply:21851,extraApply:223,med:654,
+       admit:14027,extraAdmit:197,medPass:391,
+       quit:442,extraQuit:12,medAdmit:233,medQuit:2},
+  114:{schools:65,depts:1712,quota:15689,pub:7141,priv:8548,extra:1962,
+       apply:22317,extraApply:249,med:718,
+       admit:14309,extraAdmit:226,medPass:382,
+       quit:342,extraQuit:8,medAdmit:234,medQuit:2},
+  115:{schools:64,depts:1664,quota:15554,pub:7163,priv:8391,extra:1928,
+       apply:null,extraApply:null,med:null,
+       admit:null,extraAdmit:null,medPass:null,
+       quit:null,extraQuit:null,medAdmit:null,medQuit:null}
+};
+
+const navy='#1a2332',teal='#2d8b8b',seafoam='#a8dadc',cream='#f1faee',warn='#e76f51',purple='#a490c2',gold='#f4a900';
+const noLabel={datalabels:{display:false}};
+
+function fmt(n){return n==null?'—':n.toLocaleString()}
+function pct(a,b){return b&&a!=null?(a/b*100).toFixed(1)+'%':'—'}
+function pctNum(a,b){return b&&a!=null?+(a/b*100).toFixed(1):null}
+function diff(cur,prev){if(cur==null||prev==null)return{val:0,dir:'neutral'};const d=cur-prev;return{val:d,dir:d>0?'up':d<0?'down':'neutral'}}
+function arrow(dir){return dir==='up'?'&#9650;':dir==='down'?'&#9660;':'&#9644;'}
+
+// === Cards ===
+function buildCards(){
+  const c=document.getElementById('cards');
+  const y=D[115],p=D[114];
+  const items=[
+    {label:'招生學校',value:y.schools+'所',sub:'',change:diff(y.schools,p.schools),unit:'所'},
+    {label:'招生校系數',value:fmt(y.depts),sub:'',change:diff(y.depts,p.depts),unit:'系'},
+    {label:'招生名額',value:fmt(y.quota),sub:'國立 '+fmt(y.pub)+'（'+pct(y.pub,y.quota)+'）/ 私立 '+fmt(y.priv)+'（'+pct(y.priv,y.quota)+'）',change:diff(y.quota,p.quota),unit:'個'},
+    {label:'原住民外加名額',value:fmt(y.extra),sub:'',change:diff(y.extra,p.extra),unit:'個'},
+    {label:'114 錄取率（1-7類）',value:pct(p.admit,p.apply),sub:fmt(p.admit)+' / '+fmt(p.apply),change:{val:0,dir:'neutral'},unit:''},
+    {label:'114 放棄率（1-7類）',value:pct(p.quit,p.admit),sub:fmt(p.quit)+' 人放棄',change:{val:0,dir:'neutral'},unit:''},
+    {label:'114 第八類錄取',value:fmt(p.medAdmit)+'人',sub:'報名 '+fmt(p.med)+' / 篩選通過 '+fmt(p.medPass),change:{val:0,dir:'neutral'},unit:''}
+  ];
+  c.innerHTML=items.map(it=>{
+    const ch=it.change;
+    return`<div class="card"><div class="card-label">${it.label}</div><div class="card-value">${it.value}</div><div class="card-sub">${it.sub}</div>${ch.val!==0?`<div class="card-change ${ch.dir}">${arrow(ch.dir)} ${ch.dir==='down'?'':'+'}${ch.val.toLocaleString()} vs 114</div>`:''}</div>`;
+  }).join('');
+}
+
+// === Main chart: 報名 vs 錄取 vs 名額 + 錄取率 ===
+function buildChartMain(){
+  const admitRate=YEARS.map(y=>pctNum(D[y].admit,D[y].apply));
+  new Chart(document.getElementById('chartMain'),{
+    type:'line',
+    data:{labels:YEARS.map(String),datasets:[
+      {label:'報名人數',data:YEARS.map(y=>D[y].apply),borderColor:warn,backgroundColor:warn+'33',tension:.3,pointRadius:5,pointBackgroundColor:warn,yAxisID:'y',...noLabel},
+      {label:'錄取人數',data:YEARS.map(y=>D[y].admit),borderColor:teal,backgroundColor:teal+'33',tension:.3,pointRadius:5,pointBackgroundColor:teal,yAxisID:'y',...noLabel},
+      {label:'招生名額',data:YEARS.map(y=>D[y].quota),borderColor:seafoam,backgroundColor:seafoam+'33',tension:.3,pointRadius:5,pointBackgroundColor:seafoam,borderDash:[5,5],yAxisID:'y',...noLabel},
+      {label:'錄取率',data:admitRate,borderColor:purple,backgroundColor:purple+'22',tension:.3,pointRadius:6,pointBackgroundColor:purple,borderWidth:2.5,borderDash:[3,3],yAxisID:'y2',
+        datalabels:{display:true,align:'top',offset:6,color:purple,font:{weight:'bold',size:12,family:'Poppins'},formatter:v=>v!=null?v+'%':''}}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{family:'Noto Sans TC',size:12},usePointStyle:true,pointStyle:'circle'}},
+        tooltip:{callbacks:{label:ctx=>{if(ctx.datasetIndex===3)return '錄取率: '+ctx.raw+'%';return ctx.dataset.label+': '+fmt(ctx.raw)}}}},
+      scales:{
+        y:{type:'linear',position:'left',beginAtZero:false,ticks:{callback:v=>v>=10000?(v/10000).toFixed(1)+'萬':fmt(v)},grid:{color:'#e8eff1'}},
+        y2:{type:'linear',position:'right',title:{display:true,text:'錄取率 %',font:{size:11}},min:50,max:75,grid:{display:false},ticks:{callback:v=>v+'%'}},
+        x:{grid:{display:false}}
+      }
+    }
+  });
+}
+
+// === 錄取率 & 放棄率 ===
+function buildChartRates(){
+  const admitRate=YEARS.map(y=>{const d=D[y];return d.apply?+(d.admit/d.apply*100).toFixed(1):null});
+  const quitRate=YEARS.map(y=>{const d=D[y];return d.admit?+(d.quit/d.admit*100).toFixed(1):null});
+  new Chart(document.getElementById('chartRates'),{
+    type:'line',
+    data:{labels:YEARS.map(String),datasets:[
+      {label:'錄取率 %',data:admitRate,borderColor:teal,backgroundColor:teal+'33',tension:.3,pointRadius:5,pointBackgroundColor:teal,yAxisID:'y',...noLabel},
+      {label:'放棄率 %',data:quitRate,borderColor:warn,backgroundColor:warn+'33',tension:.3,pointRadius:5,pointBackgroundColor:warn,yAxisID:'y2',...noLabel}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{family:'Noto Sans TC',size:12},usePointStyle:true,pointStyle:'circle'}},...noLabel,
+        tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.raw+'%'}}},
+      scales:{
+        y:{type:'linear',position:'left',title:{display:true,text:'錄取率 %',font:{size:11}},min:50,max:75,grid:{color:'#e8eff1'},ticks:{callback:v=>v+'%'}},
+        y2:{type:'linear',position:'right',title:{display:true,text:'放棄率 %',font:{size:11}},min:0,max:5,grid:{display:false},ticks:{callback:v=>v+'%'}},
+        x:{grid:{display:false}}
+      }
+    }
+  });
+}
+
+// === 學校數 & 校系數 ===
+function buildChartScale(){
+  new Chart(document.getElementById('chartScale'),{
+    type:'bar',
+    data:{labels:YEARS.map(String),datasets:[
+      {label:'校系數',data:YEARS.map(y=>D[y].depts),backgroundColor:seafoam+'cc',borderRadius:4,yAxisID:'y',...noLabel},
+      {label:'學校數',data:YEARS.map(y=>D[y].schools),type:'line',borderColor:teal,backgroundColor:teal,pointRadius:5,pointBackgroundColor:teal,tension:.3,yAxisID:'y2',...noLabel}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{family:'Noto Sans TC',size:12},usePointStyle:true}},...noLabel},
+      scales:{
+        y:{type:'linear',position:'left',title:{display:true,text:'校系數',font:{size:11}},grid:{color:'#e8eff1'}},
+        y2:{type:'linear',position:'right',title:{display:true,text:'學校數',font:{size:11}},min:60,max:72,grid:{display:false}},
+        x:{grid:{display:false}}
+      }
+    }
+  });
+}
+
+// === 第八學群 ===
+function buildChartMed(){
+  const medRate=YEARS.map(y=>{const d=D[y];return d.med?+(d.medAdmit/d.med*100).toFixed(1):null});
+  new Chart(document.getElementById('chartMed'),{
+    type:'bar',
+    data:{labels:YEARS.map(String),datasets:[
+      {label:'報名人數',data:YEARS.map(y=>D[y].med),backgroundColor:navy+'cc',borderRadius:4,yAxisID:'y',...noLabel},
+      {label:'篩選通過',data:YEARS.map(y=>D[y].medPass),backgroundColor:teal+'cc',borderRadius:4,yAxisID:'y',...noLabel},
+      {label:'錄取人數',data:YEARS.map(y=>D[y].medAdmit),backgroundColor:warn+'cc',borderRadius:4,yAxisID:'y',...noLabel},
+      {label:'錄取率',data:medRate,type:'line',borderColor:gold,backgroundColor:gold,pointRadius:6,pointBackgroundColor:gold,tension:.3,borderWidth:2.5,yAxisID:'y2',
+        datalabels:{display:true,align:'top',offset:6,color:gold,font:{weight:'bold',size:12,family:'Poppins'},formatter:v=>v!=null?v+'%':''}}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{family:'Noto Sans TC',size:12},usePointStyle:true}},
+        tooltip:{callbacks:{label:ctx=>{if(ctx.datasetIndex===3)return '錄取率: '+ctx.raw+'%';return ctx.dataset.label+': '+fmt(ctx.raw)}}}},
+      scales:{
+        y:{type:'linear',position:'left',title:{display:true,text:'人數',font:{size:11}},grid:{color:'#e8eff1'}},
+        y2:{type:'linear',position:'right',title:{display:true,text:'錄取率 %',font:{size:11}},min:20,max:40,grid:{display:false},ticks:{callback:v=>v+'%'}},
+        x:{grid:{display:false}}
+      }
+    }
+  });
+}
+
+// === Funnel ===
+function buildFunnel(){
+  const d=D[114];
+  const steps=[
+    {label:'報名',val:d.apply,pct:'100%',color:navy,w:38},
+    {label:'錄取',val:d.admit,pct:pct(d.admit,d.apply),color:teal,w:32},
+    {label:'實際入學',val:d.admit-d.quit,pct:pct(d.admit-d.quit,d.apply),color:'#1e6060',w:28}
+  ];
+  document.getElementById('funnel').innerHTML=steps.map(s=>
+    `<div class="funnel-step" style="background:${s.color};width:${s.w}%">
+      <div class="f-label">${s.label}</div>
+      <div class="f-val">${fmt(s.val)}</div>
+      <div class="f-pct">${s.pct}</div>
+    </div>`
+  ).join('');
+}
+
+// === Data Table ===
+function buildTable(){
+  const yrs=[115,114,113,112,111,110];
+  let h=`<thead><tr><th rowspan="2">學年度</th><th rowspan="2">學校</th><th rowspan="2">校系</th><th rowspan="2">名額</th><th colspan="4">第 1-7 類學群</th><th colspan="3">第 8 類學群（醫學）</th></tr><tr><th>報名</th><th>錄取</th><th>錄取率</th><th>放棄</th><th>報名</th><th>錄取</th><th>錄取率</th></tr></thead><tbody>`;
+  yrs.forEach(y=>{
+    const d=D[y];
+    const rate=d.apply?pct(d.admit,d.apply):'—';
+    const qr=d.admit?pct(d.quit,d.admit):'—';
+    const mRate=d.med?pct(d.medAdmit,d.med):'—';
+    const na=d.apply==null;
+    h+=`<tr${y===115?' class="highlight"':''}>
+      <td><b>${y}</b></td>
+      <td>${d.schools}</td>
+      <td>${fmt(d.depts)}</td>
+      <td>${fmt(d.quota)}</td>
+      <td>${na?'<span class="pending">尚未公布</span>':fmt(d.apply)}</td>
+      <td>${na?'<span class="pending">尚未公布</span>':fmt(d.admit)}</td>
+      <td>${na?'—':rate}</td>
+      <td>${na?'—':fmt(d.quit)+' <span class="pct">('+qr+')</span>'}</td>
+      <td>${na?'—':fmt(d.med)}</td>
+      <td>${na?'—':fmt(d.medAdmit)}</td>
+      <td>${na?'—':mRate}</td>
+    </tr>`;
+  });
+  h+='</tbody>';
+  document.getElementById('dataTable').innerHTML=h;
+}
+
+// === Init ===
+buildCards();
+buildChartMain();
+buildFunnel();
+buildChartScale();
+buildChartRates();
+buildChartMed();
+buildTable();
+</script>
+</body>
+</html>
