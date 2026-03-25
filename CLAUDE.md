@@ -4,7 +4,7 @@
 
 **月島（鳳新高中教務處）** 使用，每年分析繁星推薦校系變化和鐘擺效應，給學生和家長參考。
 
-- **GitHub Pages**：https://yoaketsuki.github.io/star-admission/
+- **GitHub Pages**：https://fhsh5209.github.io/star-admission/
 - **Git Repo**：https://github.com/yoaketsuki/star-admission
 - **狀態**：已發布，持續迭代中
 - **技術棧**：純前端 HTML + CSS + JavaScript（無框架），Chart.js 4.4.1，Botanical Garden 配色
